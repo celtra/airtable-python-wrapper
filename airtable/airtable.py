@@ -354,9 +354,14 @@ class Airtable:
             record (``dict``): Inserted record
 
         """
-        return self._post(
-            self.url_table, json_data={"fields": fields, "typecast": typecast}
-        )
+        if isinstance(fields, list):
+            return self._post(
+                self.url_table, json_data={"records": [{'fields': row for row in fields}], "typecast": typecast}
+            )
+        else:
+            return self._post(
+                self.url_table, json_data={"fields": fields, "typecast": typecast}
+            )
 
     def _batch_request(self, func, iterable):
         """ Internal Function to limit batch calls to API limit """
