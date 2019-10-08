@@ -356,7 +356,7 @@ class Airtable:
         """
         if isinstance(fields, list):
             return self._post(
-                self.url_table, json_data={"records": [{'fields': row for row in fields}], "typecast": typecast}
+                self.url_table, json_data={"records": [{'fields': row} for row in fields], "typecast": typecast}
             )
         else:
             return self._post(
